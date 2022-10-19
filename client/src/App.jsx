@@ -1,60 +1,29 @@
 import io from "socket.io-client";
-import { useEffect } from "react";
 import { useState } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
-import HelloUser from "./components/HelloUser";
+import UserControl from "./components/UserControl";
 import ChatMessage from "./components/ChatMessage";
 
 const socket = io.connect("http://localhost:3001");
 
 function App() {
-  //Room States
+
   const [room, setRoom] = useState("");
-
-  // Chat State
-  const [chat, setChat] = useState([5]);
-
-  // Username State
   const [username, setUsername] = useState("");
-  
-  //Messages States
-  const [message, setMessage] = useState({ username: "", message: "" });
-  const [messageReceived, setMessageReceived] = useState(" ");
   
   const handleRoomAndUser = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target)
     const finalData = Object.fromEntries(formData)
     setUsername(finalData.username)
-    console.log(finalData)
-    
-  }
-  
-  //Function for onChange Message
-  const handleInput = (event) => {
-    setMessage(event.target.value);
-  };
-  
-  const addUserAndJoinRoom = () => {
-    if (room !== "") {
-      socket.emit("join_room", room);
+    if (username !== "" && room !== "") {
+      socket.emit("join_room", finalData.room);
     }
-  };
-
-  const sendMessage = () => {
-    socket.emit("send_message", { message, room });
-    setMessage("");
-  };
-
-  useEffect(() => {
-    socket.on("receive_message", (data) => {
-      setMessageReceived(data.message);
-    });
-  }, [socket]);
+  }
 
   return (
     <>
@@ -79,21 +48,10 @@ function App() {
         </Container>
       </Navbar>
       <Container fluid className="d-flex flex-column align-items-center mt-5 justify-content-center">
-      {username ? <HelloUser username={username} room={room}/> : <></>}
-      {chat.length ? <ChatMessage/> : <></>}
+      {username ? <UserControl username={username} room={room}/> : <></>}
+      <ChatMessage socket={socket} username={username} room={room}/>
       </Container>
-      
-      {/* 
-      <input
-        placeholder="Message..."
-        type="text"
-        onChange={handleInput}
-        value={message.message}
-      />
-      <button onClick={sendMessage}>Send Messagem</button>
 
-      <h1>Message</h1>
-      {messageReceived} */}
     </>
   );
 }
