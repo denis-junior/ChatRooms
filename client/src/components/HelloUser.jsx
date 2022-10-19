@@ -1,7 +1,18 @@
-import React from 'react';
+import React from "react";
+import Card from "react-bootstrap/Card";
 
-const Erase = ({username, room}) => {
-    return ( <p>Hello {username}, you're in the room {room} now, text what you want with other people in the same room</p> );
-}
- 
-export default Erase;
+const HelloUser = ({ username, room }) => {
+  return (
+    <Card className="d-flex text-center" style={{ maxWidth: '50rem' }}>
+      <Card.Body>
+        <Card.Title>Hello {username}</Card.Title>
+        <Card.Text>
+          you're in the room {room} now, text what you want with other people in
+          the same room
+        </Card.Text>
+      </Card.Body>
+    </Card>
+  );
+};
+
+export default HelloUser;

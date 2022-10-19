@@ -7,6 +7,7 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import HelloUser from "./components/HelloUser";
+import ChatMessage from "./components/ChatMessage";
 
 const socket = io.connect("http://localhost:3001");
 
@@ -15,31 +16,29 @@ function App() {
   const [room, setRoom] = useState("");
 
   // Chat State
-  const [chat, setChat] = [];
+  const [chat, setChat] = useState([5]);
 
   // Username State
   const [username, setUsername] = useState("");
-
+  
   //Messages States
   const [message, setMessage] = useState({ username: "", message: "" });
   const [messageReceived, setMessageReceived] = useState(" ");
-
+  
   const handleRoomAndUser = (e) => {
     e.preventDefault();
-
     const formData = new FormData(e.target)
     const finalData = Object.fromEntries(formData)
-    
     setUsername(finalData.username)
     console.log(finalData)
-
+    
   }
-
+  
   //Function for onChange Message
   const handleInput = (event) => {
     setMessage(event.target.value);
   };
-
+  
   const addUserAndJoinRoom = () => {
     if (room !== "") {
       socket.emit("join_room", room);
@@ -79,8 +78,10 @@ function App() {
           </Nav>
         </Container>
       </Navbar>
-      
+      <Container fluid className="d-flex flex-column align-items-center mt-5 justify-content-center">
       {username ? <HelloUser username={username} room={room}/> : <></>}
+      {chat.length ? <ChatMessage/> : <></>}
+      </Container>
       
       {/* 
       <input
