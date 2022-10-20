@@ -1,31 +1,30 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, {useState, useEffect } from "react";
+
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
 
-const ChatMessage = ({socket, username, room}) => {
+const ChatMessage = ({ socket, username, room }) => {
   const [currentMessage, setCurrentMessage] = useState("");
+  const [messageList, setMessageList] = useState([]);
 
   const sendMessage = async () => {
-
-    if(currentMessage !== ""){
+    if (currentMessage !== "") {
       const messageData = {
         room: room,
         author: username,
         message: currentMessage,
-      }
+      };
       await socket.emit("send_message", messageData);
-
+      setMessageList((list) => [...list, messageData]);
+      setCurrentMessage("");
     }
   };
 
-
   useEffect(() => {
     socket.on("receive_message", (data) => {
-      // setMessageList((list) => [...list, data]);
-      console.log(data)
+      setMessageList((list) => [...list, data]);
     });
   }, [socket]);
 
@@ -34,56 +33,32 @@ const ChatMessage = ({socket, username, room}) => {
       <Card.Header as="h4" className="text-center">
         Chat
       </Card.Header>
-      {/* <ListGroup variant="flush" className="p-4">
-        <div>
-          <div className="btn btn-outline-success">
-            <p className="text-start">name</p>
-            <p>Dapibus ac facilisis in</p>
-          </div>
-        </div>
-        <div className="text-end">
-          <div className="btn btn-outline-primary">
-            <p className="text-end">name</p>
-            <p>Dapibus ac facilisis in</p>
-          </div>
-        </div>
-        <div>
-          <div className="btn btn-outline-success">
-            <p className="text-start">name</p>
-            <p>Dapibus ac facilisis in</p>
-          </div>
-        </div>
-        <div className="text-end">
-          <div className="btn btn-outline-primary">
-            <p className="text-end">name</p>
-            <p>Dapibus ac facilisis in</p>
-          </div>
-        </div>
-        <div>
-          <div className="btn btn-outline-success">
-            <p className="text-start">name</p>
-            <p>Dapibus ac facilisis in</p>
-          </div>
-        </div>
-        <div className="text-end">
-          <div className="btn btn-outline-primary">
-            <p className="text-end">name</p>
-            <p>Dapibus ac facilisis in</p>
-          </div>
-        </div>
-        <div>
-          <div className="btn btn-outline-success">
-            <p className="text-start">name</p>
-            <p>Dapibus ac facilisis in</p>
-          </div>
-        </div>
-        <div className="text-end">
-          <div className="btn btn-outline-primary">
-            <p className="text-end">name</p>
-            <p>Dapibus ac facilisis in</p>
-          </div>
-        </div>
-      </ListGroup> */}
+
+      <Card.Body>
+        <ListGroup variant="flush" className="p-4">
+          {messageList.map((messageContent, key) => {
+            if (username === messageContent.author) {
+              return (
+                <div key={key} className="mt-3 text-end">
+                  <div className="btn btn-outline-primary">
+                    <p className="text-end">{messageContent.author}</p>
+                    <p>{messageContent.message}</p>
+                  </div>
+                </div>
+              );
+            } else {
+              return (
+                <div key={key} className="mt-3" >
+                  <div className="btn btn-outline-success">
+                    <p className="text-start">{messageContent.author}</p>
+                    <p>{messageContent.message}</p>
+                  </div>
+                </div>
+              );
+            }
+          })}
+        </ListGroup>
+      </Card.Body>
       <Card.Footer className="d-flex">
         <Form.Control
           type="text"
