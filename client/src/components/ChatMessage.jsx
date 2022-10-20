@@ -23,6 +23,7 @@ const ChatMessage = ({ socket, username, room }) => {
   };
 
   useEffect(() => {
+    socket.removeListener('receive_message')
     socket.on("receive_message", (data) => {
       setMessageList((list) => [...list, data]);
     });
