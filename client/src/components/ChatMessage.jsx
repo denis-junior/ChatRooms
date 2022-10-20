@@ -40,18 +40,18 @@ const ChatMessage = ({ socket, username, room }) => {
             if (username === messageContent.author) {
               return (
                 <div key={key} className="mt-3 text-end">
-                  <div className="btn btn-outline-primary">
+                  <div className="btn btn-outline-primary" style={{width: "10rem"}}>
                     <p className="text-end">{messageContent.author}</p>
-                    <p>{messageContent.message}</p>
+                    <p className="text-end">{messageContent.message}</p>
                   </div>
                 </div>
               );
             } else {
               return (
-                <div key={key} className="mt-3" >
-                  <div className="btn btn-outline-success">
+                <div key={key} className="mt-3">
+                  <div className="btn btn-outline-success" style={{width: "10rem"}}>
                     <p className="text-start">{messageContent.author}</p>
-                    <p>{messageContent.message}</p>
+                    <p className="text-start">{messageContent.message}</p>
                   </div>
                 </div>
               );
@@ -66,6 +66,7 @@ const ChatMessage = ({ socket, username, room }) => {
           onChange={(event) => {
             setCurrentMessage(event.target.value);
           }}
+          value={currentMessage}
         />
         <Button
           variant="outline-secondary"
@@ -74,6 +75,7 @@ const ChatMessage = ({ socket, username, room }) => {
         >
           Send
         </Button>
+        {/* <button onClick={() => console.log(messageList)} >Show Message List</button> */}
       </Card.Footer>
     </Card>
   );

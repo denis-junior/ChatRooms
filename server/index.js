@@ -1,16 +1,15 @@
 const express = require("express");
 const app = express();
 const http = require("http")
-const { Server } = require("socket.io")
 const cors = require("cors")
-
-app.use(cors)
+const { Server } = require("socket.io")
+app.use(cors())
 
 const server = http.createServer(app)
 const io = new Server(server, {
     cors: {
         origin: "http://localhost:3000",
-        methods: ["GET", "POST"]
+        methods: ["GET", "POST"],
     }
 })
 
@@ -18,8 +17,8 @@ io.on("connection", (socket) => {
     console.log(`User Connected: ${socket.id}`)
 
     socket.on("join_room", (data) => {
-        console.log(`User ${socket.id} joined room: ${data}`);
         socket.join(data);
+        console.log(`User ${socket.id} joined room: ${data}`);
 
     })
 
@@ -34,5 +33,5 @@ io.on("connection", (socket) => {
 })
 
 server.listen(3001, () => {
-    console.log("server is running in 3001!")
+    console.log("server is running!")
 })
