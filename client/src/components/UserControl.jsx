@@ -3,7 +3,7 @@ import Card from "react-bootstrap/Card";
 
 const HelloUser = ({username, room }) => {
   return (
-    <Card className="d-flex text-center" style={{ maxWidth: "50rem" }}>
+    <footer className="d-flex text-center position-absolute bottom-0 start-50 translate-middle-x " style={{ maxWidth: "50rem" }}>
       <Card.Body>
         <Card.Title>Hello {username}</Card.Title>
         <Card.Text>
@@ -11,7 +11,7 @@ const HelloUser = ({username, room }) => {
           people in the same room
         </Card.Text>
       </Card.Body>
-    </Card>
+    </footer>
   );
 };
 
