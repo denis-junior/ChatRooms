@@ -1,12 +1,11 @@
 import io from "socket.io-client";
 import { useState } from "react";
 import ChatMessage from "./components/ChatMessage";
-import UserControl from "./components/UserControl";
 import "./App.css";
 import SingIn from "./components/SingIn";
 import Signed from "./components/Signed";
 
-const socket = io.connect("http://localhost:3001");
+const socket = io.connect("http://18.228.7.126/3001");
 
 function App() {
   const [username, setUsername] = useState("");

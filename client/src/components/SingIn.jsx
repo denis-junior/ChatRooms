@@ -23,6 +23,7 @@ const SingIn = ({ setRoom, setUsername, joinRoomAndAddUsername }) => {
               type="text"
               onChange={(event) => setUsername(event.target.value)}
               placeholder=" Username"
+              onKeyPress={value => value.key === "Enter" && joinRoomAndAddUsername()}
             />
           </div>
           <button

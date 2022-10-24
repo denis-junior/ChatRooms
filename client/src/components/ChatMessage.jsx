@@ -1,9 +1,9 @@
-import React, {useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import ScrollToBottom from "react-scroll-to-bottom";
 
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import ListGroup from "react-bootstrap/ListGroup";
 
 const ChatMessage = ({ socket, username, room }) => {
   const [currentMessage, setCurrentMessage] = useState("");
@@ -23,7 +23,7 @@ const ChatMessage = ({ socket, username, room }) => {
   };
 
   useEffect(() => {
-    socket.removeListener('receive_message')
+    socket.removeListener("receive_message");
     socket.on("receive_message", (data) => {
       setMessageList((list) => [...list, data]);
     });
@@ -31,53 +31,66 @@ const ChatMessage = ({ socket, username, room }) => {
 
   return (
     <div className="main-chat">
-    <Card className="box-chat">
-      <Card.Header as="h4" className="text-center header-chat">
-        Chat
-      </Card.Header>
-      <Card.Body className="body-chat">
-        <ListGroup variant="flush" className="p-4">
-          {messageList.map((messageContent, key) => {
-            if (username === messageContent.author) {
-              return (
-                <div key={key} className="mt-3 text-end">
-                  <div className="btn btn-outline-primary" style={{width: "10rem"}}>
-                    <p className="text-end">{messageContent.author}</p>
-                    <p className="text-end">{messageContent.message}</p>
+      <Card className="box-chat">
+        <Card.Header as="h4" className="text-center header-chat">
+          Chat
+        </Card.Header>
+        <Card.Body className="body-chat">
+          <ScrollToBottom className="scroll-message">
+            {messageList.map((messageContent, key) => {
+              if (username === messageContent.author) {
+                return (
+                  <div
+                    key={key}
+                    className="mt-3 text-end box-message author-box-message"
+                  >
+                    <div className="message-content">
+                      <p className="text-end message-name">
+                        {messageContent.author}
+                      </p>
+                      <p className=" message-message">
+                        {messageContent.message}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              );
-            } else {
-              return (
-                <div key={key} className="mt-3">
-                  <div className="btn btn-outline-success" style={{width: "10rem"}}>
-                    <p className="text-start">{messageContent.author}</p>
-                    <p className="text-start">{messageContent.message}</p>
+                );
+              } else {
+                return (
+                  <div key={key} className="mt-3 box-message">
+                    <div className="message-content">
+                      <p className="text-start message-name">
+                        {messageContent.author}
+                      </p>
+                      <p className="text-start message-message">
+                        {messageContent.message}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              );
-            }
-          })}
-        </ListGroup>
-      </Card.Body>
-      <Card.Footer className="footer-chat">
-        <Form.Control
-          type="text"
-          placeholder="Enter message..."
-          onChange={(event) => {
-            setCurrentMessage(event.target.value);
-          }}
-          value={currentMessage}
+                );
+              }
+            })}
+          </ScrollToBottom>
+        </Card.Body>
+        <Card.Footer className="footer-chat">
+          <Form.Control
+            className="input-chat"
+            type="text"
+            placeholder="Enter message..."
+            onChange={(event) => {
+              setCurrentMessage(event.target.value);
+            }}
+            onKeyPress={(event) => event.key === "Enter" && sendMessage()}
+            value={currentMessage}
           />
-        <Button
-          variant="outline-light"
-          onClick={sendMessage}
-          className="ms-2"
+          <Button
+            variant="outline-light"
+            onClick={sendMessage}
+            className="ms-2"
           >
-          Send
-        </Button>
-      </Card.Footer>
-    </Card>
+            Send
+          </Button>
+        </Card.Footer>
+      </Card>
     </div>
   );
 };
