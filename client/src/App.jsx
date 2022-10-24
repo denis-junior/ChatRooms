@@ -2,10 +2,11 @@ import io from "socket.io-client";
 import { useState } from "react";
 import ChatMessage from "./components/ChatMessage";
 import UserControl from "./components/UserControl";
-import { FaUsers } from "react-icons/fa";
 import "./App.css";
+import SingIn from "./components/SingIn";
+import Signed from "./components/Signed";
 
-const socket = io.connect("http://192.168.1.60:3001");
+const socket = io.connect("http://localhost:3001");
 
 function App() {
   const [username, setUsername] = useState("");
@@ -21,45 +22,13 @@ function App() {
 
   return (
     <div className="main-app">
-      <header className="nav-main">
-        <p className="nav-logo">Chat Rooms</p>
-        <nav className="nav-control">
-          <div className="nav-field">
-          <FaUsers className="icon-nav-field" />
-            <input
-              className="nav-input"
-              type="text"
-              onChange={(event) => setRoom(event.target.value)}
-              placeholder="Room"
-            />
-          </div>
-          <div className="nav-field">
-          <FaUsers className="icon-nav-field" />
-            <input
-              className="nav-input"
-              type="text"
-              onChange={(event) => setUsername(event.target.value)}
-              placeholder=" Username"
-            />
-          </div>
-          <button
-            className="button-nav"
-            variant="light"
-            onClick={joinRoomAndAddUsername}
-          >
-            Join
-          </button>
-        </nav>
-      </header>
-
-
       {showChat ? (
         <>
+          <Signed room={room} username={username}/>
           <ChatMessage socket={socket} username={username} room={room} />
-          <UserControl username={username} room={room} />
         </>
       ) : (
-        <></>
+        <SingIn setRoom={setRoom} setUsername={setUsername} joinRoomAndAddUsername={joinRoomAndAddUsername}/>
       )}
     </div>
   );

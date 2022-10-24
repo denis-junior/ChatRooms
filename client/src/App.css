@@ -1,82 +1,198 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-body {
-    height: 100vh;
-    width: 100vw;
-    background-color: rgb(160, 57, 57);
-}
+/* body {
+  height: 100vh;
+  width: 100vw;
+  background-color: #b36565;
+} */
 
 .main-app {
-    background-color: rgb(150, 132, 32);
+  background-color: rgb(64, 62, 46);
+  height: 100vh;
+  width: 100vw;
+}
+
+.main-app-signed-in {
+  height: 100%;
+  border: 1px solid pink;
+}
+
+.sign-in-welcome {
+  border: 1px solid blueviolet;
+  height: 50%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+}
+
+.box-information {
+  background-color: #42855b;
+  border-radius: .25rem; 
+  text-align: justify;
+  color: #90b77d;
+  padding: 1rem;
+  width: 50%;
+  
+
+  
 }
 
 .nav-main {
-    background-color: blueviolet;
-    
-    padding: 1rem;
-    height: 5rem;
+  /* background-color: blueviolet; */
+  background-color: #90b77d;
 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  padding: 1rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.nav-logo{
-    margin: 0;
-    display: flex;
-    align-items: center;
-    text-align: center;
+.nav-logo {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  text-align: center;
 
-    font-family: "Roboto", sans-serif;
-    font-weight: 500;
-    font-size: 1.4rem;
+  color: #42855b;
+
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-size: 1.4rem;
 }
 
 .nav-control {
-    background-color: darkmagenta;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
+  /* background-color: darkmagenta; */
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .nav-field {
-    background-color: rgb(127, 168, 255);
-    margin-left: 1rem;
-    border-radius: 1rem;
+  background-color: rgb(127, 168, 255);
+  margin-left: 1rem;
+  border-radius: 1rem;
 }
 
 .icon-nav-field {
-    color: green;
-    font-size: 1.8rem;
-    position: absolute;
-    
-    margin: .5rem;
-    /* background-color: cadetblue; */
+  /* color: green; */
+  font-size: 1.8rem;
+  position: absolute;
+  color: #90b77d;
+
+  margin: 0.5rem;
+  /* background-color: cadetblue; */
+}
+
+.username-icon {
+  font-size: 1.35rem;
+  margin: 0.7rem;
 }
 
 .nav-input {
-    padding: 1.5rem 3rem;
-    padding-right: 0;
+  padding: 1.5rem 3rem;
+  padding-right: 0;
 
-    border-radius: .3rem;
-    height: .1rem;
-    background-color: rgb(16, 75, 55);
-    border: none;
-    
+  border-radius: 0.3rem;
+  height: 0.1rem;
+  color: #90b77d;
+  background-color: #42855b;
+  border: none;
+}
+
+.nav-input::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #90b77d;
+  opacity: 1; /* Firefox */
+}
+
+.nav-input:focus {
+    color: #90b77d;
 }
 
 .button-nav {
-    height: 100%;
-    width: 5rem;
+  height: 100%;
+  padding: .7rem 0;
+  width: 5rem;
 
-    margin-left: 1rem;
+  margin-left: 1rem;
+
+  border: 1px solid #42855b;
+  border-radius: 0.6rem;
+
+  background-color: #90b77d;
+  color: #42855b;
+
+  transition: 0.5s;
+}
+
+.button-nav:hover {
+  background-color: #42855b;
+  color: #90b77d;
+}
+
+/* Chat */
+.main-chat {
+  border: 1px solid red;
+  height: 70%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.box-chat{
+  color: red;
+  background-color: #90b77d;
+  width: 40%;
+
+}
+
+.header-chat {
+  background-color: #42855b;
+}
+
+.body-chat {
+  background-color: blue;
+  height: 16rem;
+}
+
+.footer-chat {
+  background-color: #42855b;
+  display: flex;
+}
+
+@media(max-width: 800px) {
+    body{
+        background-color: red;
+    }
+
+    .nav-main {
+        flex-direction: column;
+    }
+    .nav-control {
+        flex-direction: column;
+    }
+    .nav-field {
+        margin-top: .7rem;
+
+    }
     
-    border: none;
-    border-radius: .6rem;
+    .button-nav {
+        margin-top: .7rem;
+        width: 40%;
+        padding: .5rem 0;
+    }
+}
+
+@media (max-width: 600px) {
+  .box-information {
+    width: 70%;
+  }
 }

@@ -30,12 +30,12 @@ const ChatMessage = ({ socket, username, room }) => {
   }, [socket]);
 
   return (
-    <Card className="mt-3" style={{ width: "40rem" }}>
-      <Card.Header as="h4" className="text-center">
+    <div className="main-chat">
+    <Card className="box-chat">
+      <Card.Header as="h4" className="text-center header-chat">
         Chat
       </Card.Header>
-
-      <Card.Body>
+      <Card.Body className="body-chat">
         <ListGroup variant="flush" className="p-4">
           {messageList.map((messageContent, key) => {
             if (username === messageContent.author) {
@@ -60,7 +60,7 @@ const ChatMessage = ({ socket, username, room }) => {
           })}
         </ListGroup>
       </Card.Body>
-      <Card.Footer className="d-flex">
+      <Card.Footer className="footer-chat">
         <Form.Control
           type="text"
           placeholder="Enter message..."
@@ -68,17 +68,17 @@ const ChatMessage = ({ socket, username, room }) => {
             setCurrentMessage(event.target.value);
           }}
           value={currentMessage}
-        />
+          />
         <Button
-          variant="outline-secondary"
+          variant="outline-light"
           onClick={sendMessage}
           className="ms-2"
-        >
+          >
           Send
         </Button>
-        {/* <button onClick={() => console.log(messageList)} >Show Message List</button> */}
       </Card.Footer>
     </Card>
+    </div>
   );
 };
 
