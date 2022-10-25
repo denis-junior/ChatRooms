@@ -8,10 +8,14 @@ app.use(cors())
 const server = http.createServer(app)
 const io = new Server(server, {
     cors: {
-        origin: "https://chat-rooms-pi.vercel.app/",
+        origin: "*",
         methods: ["GET", "POST"],
     } 
 })
+
+// app.get("/", (req, res) => {
+//     res.send({text: "Hello"})
+// })
 
 io.on("connection", (socket) => {
     console.log(`User Connected: ${socket.id}`)
