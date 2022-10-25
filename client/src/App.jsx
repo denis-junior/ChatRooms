@@ -5,7 +5,7 @@ import "./App.css";
 import SingIn from "./components/SingIn";
 import Signed from "./components/Signed";
 
-const socket = io.connect("http://18.228.7.126/3001");
+const socket = io.connect("http://18.228.7.126:3001");
 
 function App() {
   const [username, setUsername] = useState("");
