@@ -13,7 +13,7 @@ app.use(function (req, res, next) {
 const server = http.createServer(app)
 const io = new Server(server, {
     cors: {
-        allowedHeaders: "*",
+        allowedHeaders: ["Content-Type"],
         origin: "*",
         methods: ["GET", "POST"],
     }
