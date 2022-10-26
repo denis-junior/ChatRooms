@@ -4,7 +4,7 @@ const http = require("http")
 const cors = require("cors")
 const { Server } = require("socket.io")
 app.use(cors())
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
@@ -13,13 +13,14 @@ app.use(function(req, res, next) {
 const server = http.createServer(app)
 const io = new Server(server, {
     cors: {
+        allowedHeaders: "*",
         origin: "*",
         methods: ["GET", "POST"],
-    } 
+    }
 })
 
 app.get("/", (req, res) => {
-    res.send({text: "Hello"})
+    res.send({ text: "Hello" })
 })
 
 io.on("connection", (socket) => {
