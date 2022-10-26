@@ -13,9 +13,9 @@ const io = new Server(server, {
     } 
 })
 
-// app.get("/", (req, res) => {
-//     res.send({text: "Hello"})
-// })
+app.get("/", (req, res) => {
+    res.send({text: "Hello"})
+})
 
 io.on("connection", (socket) => {
     console.log(`User Connected: ${socket.id}`)
@@ -39,3 +39,5 @@ io.on("connection", (socket) => {
 server.listen(3001, () => {
     console.log("server is running!")
 })
+
+module.exports = app;
